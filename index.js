@@ -24,14 +24,14 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/:date", function (req, res) {
+app.get("/api/:date?", function (req, res) {
   let date = req.params.date;
   const isUnix = /^\d{10,13}$/.test(date);
   if(isUnix) {
     date = Number(date);
   }
 
-  const parsedDate = new Date(date);
+  const parsedDate = date ? new Date(date) : new Date();
   const unix = Math.floor(parsedDate.getTime());
   const utc = parsedDate.toUTCString();
 
